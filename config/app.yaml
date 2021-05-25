@@ -1,0 +1,10 @@
+%YAML 1.2
+---
+db:
+  ip: '127.0.0.1'
+  port: 3306
+  user: 'demo'
+  password: ''
+  db_name: 'board'
+security:
+  salt: 'awRhHTt1_aWay#pp'
