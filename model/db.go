@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"mydemo/config"
+	"time"
 )
 
 func Conn() *sql.DB {
@@ -22,6 +23,10 @@ func Conn() *sql.DB {
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
 	}
+
+	db.SetConnMaxLifetime(time.Minute * 3)
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(10)
 
 	return db
 }

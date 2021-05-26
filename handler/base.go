@@ -7,11 +7,6 @@ import (
 	"strconv"
 )
 
-type User struct {
-	UserName string `json:"user_name"`
-	PassWord string `json:"password"`
-}
-
 func BaseResponse(w http.ResponseWriter, dataCode int, data interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
