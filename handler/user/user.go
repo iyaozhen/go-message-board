@@ -8,6 +8,9 @@ import (
 	"net/http"
 )
 
+var sessionStore = handler.SessionStart()
+var SessionName = "user"
+
 func SingUp(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var userInfo Muser.User
@@ -32,6 +35,17 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	loginUser := user.Login(userInfo.UserName, userInfo.PassWord)
 	if loginUser.Id > 0 {
+		session, _ := sessionStore.Get(r, SessionName)
+		// Set some session values.
+		session.Values["user_id"] = loginUser.Id
+		session.Values["user_name"] = loginUser.UserName
+		// Save it before we write to the response/return from the handler.
+		err := session.Save(r, w)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
 		handler.BaseResponse(w, 200, "ok")
 	} else {
 		handler.BaseResponse(w, 500, "error")

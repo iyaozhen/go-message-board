@@ -3,7 +3,6 @@ package config
 import (
 	"github.com/goccy/go-yaml"
 	"io/ioutil"
-	"log"
 )
 
 type ConfT struct {
@@ -25,7 +24,7 @@ func Config() ConfT {
 	m := ConfT{}
 	err := yaml.Unmarshal(data, &m)
 	if err != nil {
-		log.Fatalf("error: %v", err)
+		panic(err)
 	}
 
 	return m

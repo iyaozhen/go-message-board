@@ -8,3 +8,4 @@ db:
   db_name: 'board'
 security:
   salt: 'awRhHTt1_aWay#pp'
+  session_key: '4FNTnD*BQFUnD^xe'
